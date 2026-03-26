@@ -6,7 +6,7 @@ const TodoStore = create((set) => ({
     data: [], // 데이터 보관
     save: async function (value) {
         try {
-            let res = await axios.post("http://localhost:4000/todo", value)
+            let res = await axios.post(process.env.REACT_APP_APIURL, value)
 
             set((item) => {
                 return { data: [...item.data, res.data.data] }

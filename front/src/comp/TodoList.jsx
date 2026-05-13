@@ -3,25 +3,37 @@ import TodoItem from './TodoItem'
 import TodoStore from '../store/TodoStore';
 
 
-
 function TodoList() {
   const { data } = TodoStore();
 
-  if (data.length === 0) return <div className='ready'>준비중...</div>;
-
   return (
-    <div className='contents'>
-      <ul className='list'>
-        {
-          data.map(function (item) {
-            return <TodoItem key={item._id} item={item} />
-          })
-          // data.length != 0 && <>하이~~</> // && -> 앞에 데이터가 들어오면 화면에 실행, 데이터가 안들어오면 ex) 0, false 으로 화면에 안 보여진다
-        }
+    <div className="todo-contents">
+      {data.length === 0 ? (
+        <div className="ready">
+          
+          <img src='./image/Ic_list.svg'/>
 
-      </ul>
+          <p>준비중...</p>
+
+          <span>할 일을 추가해보세요</span>
+        </div>
+      ) : (
+        <ul className="todo-list">
+          {data.map((item) => {
+            return (
+              <TodoItem
+                key={item._id}
+                item={item}
+              />
+            );
+          })}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
 
-export default TodoList
+export default TodoList;
+
+
+

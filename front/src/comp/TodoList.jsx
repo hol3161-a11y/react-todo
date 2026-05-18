@@ -1,19 +1,15 @@
-import React from 'react'
-import TodoItem from './TodoItem'
-import TodoStore from '../store/TodoStore';
+import React from "react";
+import TodoItem from "./TodoItem";
+import TodoStore from "../store/TodoStore";
 
-
-function TodoList() {
+function TodoList({ selectedId, setSelectedId }) {
   const { data } = TodoStore();
 
   return (
     <div className="todo-contents">
       {data.length === 0 ? (
         <div className="ready">
-          
-          <img src='./image/Ic_list.svg'/>
-
-          <p>준비중...</p>
+          <img src="./image/Ic_list.svg" />
 
           <span>할 일을 추가해보세요</span>
         </div>
@@ -24,6 +20,8 @@ function TodoList() {
               <TodoItem
                 key={item._id}
                 item={item}
+                selectedId={selectedId}
+                setSelectedId={setSelectedId}
               />
             );
           })}
@@ -34,6 +32,3 @@ function TodoList() {
 }
 
 export default TodoList;
-
-
-

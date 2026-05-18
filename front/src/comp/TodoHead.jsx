@@ -1,67 +1,78 @@
 import { useState } from "react";
 import TodoStore from "../store/TodoStore";
 
-function TodoHead() {
-  const { get, count } = TodoStore();
+function TodoHead({ selectedId, setSelectedId }) {
+  const { get, count, completeTodo } = TodoStore();
 
   const [open, setOpen] = useState(false);
+  const [filterName, setFilterName] = useState("전체");
+  const [activeTab, setActiveTab] = useState("todo");
 
   const doneCount = count.filter((item) => item.isdone).length;
   const todoCount = count.length - doneCount;
 
+  async function handleComplete() {
+    if (!selectedId) return;
+
+    await completeTodo(selectedId);
+    setSelectedId("");
+
+    await get(true);
+    setActiveTab("done");
+  }
+
+  function handleFilter(name, value) {
+    setFilterName(name);
+    setOpen(false);
+    get(value);
+  }
+
   return (
     <header className="todo-header">
-      <h1 className="logo">To Do✓</h1>
+      <div className="logo-row">
+        <h1 className="logo">ToDo ✓</h1>
 
-      <div className="todo-top">
-        <div className="todo-state">
-          <button className="active">할일 ({todoCount})</button>
-
-          <button>완료 ({doneCount})</button>
-        </div>
-
-        {/* dropdown */}
         <div className="dropdown">
           <button className="dropdown-btn" onClick={() => setOpen(!open)}>
-            전체 ▼
+            {filterName} ▼
           </button>
 
           {open && (
             <div className="dropdown-menu">
-              <button
-                onClick={() => {
-                  get("all");
-                  setOpen(false);
-                }}
-              >
-                전체
-              </button>
+              <button onClick={() => handleFilter("전체", "all")}>전체</button>
 
-              <button
-                onClick={() => {
-                  get(false);
-                  setOpen(false);
-                }}
-              >
-                진행
-              </button>
+              <button onClick={() => handleFilter("진행", false)}>진행</button>
 
-              <button
-                onClick={() => {
-                  get(true);
-                  setOpen(false);
-                }}
-              >
-                완료
-              </button>
+              <button onClick={() => handleFilter("완료", true)}>완료</button>
             </div>
           )}
         </div>
+      </div>
+
+      <div className="todo-top">
+        <div className="todo-state">
+          <button className="active" type="button">
+            할일 ({todoCount})
+          </button>
+
+          <button
+            className={`done-tab ${doneCount > 0 ? "has-done" : ""}`}
+            type="button"
+          >
+            완료 ({doneCount})
+          </button>
+        </div>
+
+        <button
+          className="head-done-btn"
+          disabled={!selectedId}
+          onClick={handleComplete}
+        >
+          완료
+        </button>
       </div>
     </header>
   );
 }
 
 export default TodoHead;
-
-

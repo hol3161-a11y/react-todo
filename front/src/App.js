@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import TodoHead from "./comp/TodoHead";
 import TodoInsert from "./comp/TodoInsert";
@@ -7,6 +7,7 @@ import TodoStore from "./store/TodoStore";
 import "../src/todolist.css";
 
 function App() {
+  const [selectedId, setSelectedId] = useState("");
   const { get } = TodoStore();
   useEffect(() => {
     get("all"); //get 함수 실행
@@ -18,8 +19,9 @@ function App() {
         <div className="dynamic-island"></div>
 
         <div className="todo-wrap">
-          <TodoHead />
-          <TodoList />
+          <TodoHead selectedId={selectedId} setSelectedId={setSelectedId} />
+
+          <TodoList selectedId={selectedId} setSelectedId={setSelectedId} />
           <TodoInsert />
         </div>
       </div>

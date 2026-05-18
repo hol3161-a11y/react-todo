@@ -29,7 +29,7 @@ function TodoItem({ item, selectedId, setSelectedId }) {
           }
         }}
       >
-        <img src="./image/ic_check.svg" alt="" />
+        <img src="./image/ic_check.svg" alt="체크" />
       </button>
 
       <div className="todo-info">

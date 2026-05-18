@@ -17,8 +17,9 @@ function TodoHead({ selectedId, setSelectedId }) {
     await completeTodo(selectedId);
     setSelectedId("");
 
-    await get(true);
-    setActiveTab("done");
+    await get("all"); 
+    setFilterName("전체"); 
+    setActiveTab("todo"); 
   }
 
   function handleFilter(name, value) {

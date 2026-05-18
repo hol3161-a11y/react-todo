@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TodoStore from "../store/TodoStore";
+import Check from '../ic_check.svg'
 
 function TodoItem({ item, selectedId, setSelectedId }) {
   const { del, update } = TodoStore();
@@ -29,7 +30,9 @@ function TodoItem({ item, selectedId, setSelectedId }) {
           }
         }}
       >
-        <img src="/image/ic_check.svg" alt="체크" />
+        {/* <img src="/image/ic_check.svg" alt="체크" /> */}
+        <img src={Check} alt="체크" />
+        
       </button>
 
       <div className="todo-info">

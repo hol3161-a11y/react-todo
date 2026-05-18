@@ -11,7 +11,7 @@ function TodoHead() {
 
   return (
     <header className="todo-header">
-      <h1 className="logo">DO ✓</h1>
+      <h1 className="logo">To Do✓</h1>
 
       <div className="todo-top">
         <div className="todo-state">

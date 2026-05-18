@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
-import TodoStore from '../store/TodoStore';
-
-
+import React, { useState } from "react";
+import TodoStore from "../store/TodoStore";
 
 function TodoInsert() {
   const { save } = TodoStore();
@@ -18,6 +16,9 @@ function TodoInsert() {
     const today = new Date();
 
     const date = new Intl.DateTimeFormat("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
     }).format(today);
@@ -48,4 +49,3 @@ function TodoInsert() {
 }
 
 export default TodoInsert;
-

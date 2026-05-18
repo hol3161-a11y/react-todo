@@ -7,27 +7,31 @@ function TodoItem({ item }) {
 
   const [editId, setEditId] = useState("");
   const [editText, setEditText] = useState("");
+  const [checked, setChecked] = useState(false);
 
   return (
     <li className={`todo-item ${item.isdone ? "done" : ""}`}>
-      {/* left */}
+      <button
+        className={`check-circle ${checked || item.isdone ? "checked" : ""}`}
+        onClick={() => setChecked(!checked)}
+      >
+        ✓
+      </button>
+
       <div className="todo-info">
         {editId === item._id ? (
           <form
             className="edit-form"
             onSubmit={(e) => {
               e.preventDefault();
-
               update(item._id, editText, setEditId);
             }}
           >
             <input
               autoFocus
-              type="text"
-              defaultValue={item.content}
+              value={editText}
               onChange={(e) => setEditText(e.target.value)}
             />
-
             <button className="save-btn">저장</button>
           </form>
         ) : (
@@ -38,35 +42,28 @@ function TodoItem({ item }) {
         )}
       </div>
 
-      {/* right */}
       <div className="todo-actions">
-        {editId === item._id ? (
-          <button className="edit-btn disabled" disabled>
-            수정
-          </button>
-        ) : (
+        <button
+          className="edit-btn"
+          onClick={() => {
+            setEditId(item._id);
+            setEditText(item.content);
+          }}
+        >
+          수정
+        </button>
+
+        {!item.isdone && (
           <button
-            className="edit-btn"
-            onClick={() => {
-              setEditId(item._id);
-              setEditText(item.content);
-            }}
+            className="done-btn"
+            disabled={!checked}
+            onClick={() => completeTodo(item._id)}
           >
-            수정
+            완료
           </button>
         )}
 
-        <button
-          className={`done-btn ${item.isdone ? "active" : ""}`}
-          onClick={() => completeTodo(item._id)}
-        >
-          {item.isdone ? "취소" : "완료"}
-        </button>
-
-        <button
-          className="delete-btn"
-          onClick={() => del(item._id)}
-        >
+        <button className="delete-btn" onClick={() => del(item._id)}>
           삭제
         </button>
       </div>

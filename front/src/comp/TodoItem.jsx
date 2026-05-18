@@ -29,7 +29,7 @@ function TodoItem({ item, selectedId, setSelectedId }) {
           }
         }}
       >
-        <img src="./image/ic_check.svg" alt="체크" />
+        <img src="/image/ic_check.svg" alt="체크" />
       </button>
 
       <div className="todo-info">
@@ -69,12 +69,12 @@ function TodoItem({ item, selectedId, setSelectedId }) {
                 setEditText(item.content);
               }}
             >
-              <img src="./image/ic_edit.svg" alt="수정" />
+              <img src="/image/ic_edit.svg" alt="수정" />
               수정
             </button>
 
             <button className="delete-btn" onClick={() => del(item._id)}>
-              <img src="./image/ic_trash-filled.svg" alt="삭제" />
+              <img src="/image/ic_trash-filled.svg" alt="삭제" />
               삭제
             </button>
           </>

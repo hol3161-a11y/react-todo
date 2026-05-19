@@ -133,6 +133,14 @@
   overflow-y: auto;
   padding: 18px 16px 120px;
   background: #fafafa;
+
+ 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.todo-contents::-webkit-scrollbar {
+  display: none;
 }
 
 .todo-list {
